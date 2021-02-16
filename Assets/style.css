@@ -1,0 +1,54 @@
+#viewHighscores
+{
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#timer
+{
+    float: right;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.title
+{
+    position: absolute;
+    text-align: center;
+    width: 450px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 100px;
+    margin-right: 33%;
+    margin-left: 33%;
+}
+
+#option1
+{
+    display: none;
+}
+
+#option2
+{
+    display: none;
+}
+
+#option3
+{
+    display: none;
+}
+
+#option4
+{
+    display: none;
+}
+
+button
+{
+    background-color: #6E5689;
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+
+
+
