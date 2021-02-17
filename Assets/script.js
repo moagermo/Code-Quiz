@@ -5,7 +5,9 @@ var option1 = document.querySelector("#option1");
 var option2 = document.querySelector("#option2");
 var option3 = document.querySelector("#option3");
 var option4 = document.querySelector("#option4");
-
+var questionNumber = 0;
+var points = 0;
+var correctAnswer;
 
 var myQuestions = 
 [
@@ -66,15 +68,6 @@ var myQuestions =
     },
 ]
 
-// window.onload=function()
-// {
-//     document.getElementById("option1").style.display='none';
-//     document.getElementById("option2").style.display='none';
-//     document.getElementById("option3").style.display='none';
-//     document.getElementById("option4").style.display='none';
-  
-// }
-
 function showButtons()
 {
     document.getElementById("option1").style.display='block';
@@ -83,89 +76,139 @@ function showButtons()
     document.getElementById("option4").style.display='block';
 }
 
-
-
 startButton = document.addEventListener("click", function()
 {
     
-    startQuiz();
+    questionNumber = 0;
+    playQuiz();
     
 });
 
-function startQuiz()
+function showQuestion(num)
 {
     document.getElementById("startButton").style.display='none';
     showButtons();
-    var points = 0;
 
-    var i = 0;
+    correctAnswer = myQuestions[num].correctAnswer;
+    instructions.remove();
+    
+    title.textContent = myQuestions[num].question;
+    option1.textContent = myQuestions[num].answers.a;
+    option2.textContent = myQuestions[num].answers.b;
+    option3.textContent = myQuestions[num].answers.c;
+    option4.textContent = myQuestions[num].answers.d;
 
-    // for(i = 0 ; i < 1 ; i++)
-    // {
-        instructions.remove();
-        
-        title.textContent = myQuestions[i].question;
-        option1.textContent = myQuestions[i].answers.a;
-        option2.textContent = myQuestions[i].answers.b;
-        option3.textContent = myQuestions[i].answers.c;
-        option4.textContent = myQuestions[i].answers.d;
+}
 
-        // console.log(myQuestions[i].correctAnswer)
+function playQuiz()
+{
+    if(questionNumber < myQuestions.length)
+    {
+        showQuestion(questionNumber);
 
         document.getElementById('option1').onclick = function checkAnswer()
         {
-            if(option1.textContent === myQuestions[i].correctAnswer)
+            if(option1.textContent === correctAnswer)
             {
-                console.log("YAYY");
+                outcome = "Correct!";
+                points = points + 10;
+                questionNumber++;
+                showResults(outcome);
+                
             }
             else
             {
-                console.log("That sucks");
+                outcome = "Wrong!";
+                points = points - 10;
+                questionNumber++;
+                showResults(outcome);
+                
             }
         }
         document.getElementById('option2').onclick = function checkAnswer()
         {
-            if(option2.textContent === myQuestions[i].correctAnswer)
+            if(option2.textContent === correctAnswer)
             {
-                console.log("YAYY");
+                outcome = "Correct!";
+                points = points + 10;
+                questionNumber = questionNumber + 1;
+                showResults(outcome);
+                
             }
             else
             {
-                console.log("That sucks");
+                outcome = "Wrong!";
+                points = points - 10;
+                questionNumber = questionNumber + 1;
+                showResults(outcome);
+                
             }
         }
         document.getElementById('option3').onclick = function checkAnswer()
         {
-            if(option3.textContent === myQuestions[i].correctAnswer)
+            if(option3.textContent === correctAnswer)
             {
-                console.log("YAYY");
+                outcome = "Correct!";
+                points = points + 10;
+                questionNumber = questionNumber + 1;
+                showResults(outcome);
+                
             }
             else
             {
-                console.log("That sucks");
+                outcome = "Wrong!";
+                points = points - 10;
+                questionNumber = questionNumber + 1;
+                showResults(outcome);
+                
             }
         }
         document.getElementById('option4').onclick = function checkAnswer()
         {
-            console.log(myQuestions[i].correctAnswer);
-            if(option4.textContent === myQuestions[i].correctAnswer)
+            if(option4.textContent === correctAnswer)
             {
-                console.log("YAYY");
+                outcome = "Correct!";
+                points = points + 10;
+                questionNumber = questionNumber + 1;
+                showResults(outcome);
+                
             }
             else
-            {
-                console.log("That sucks");
+            {   
+                outcome = "Wrong!";
+                points = points - 10;
+                questionNumber = questionNumber + 1;
+                showResults(outcome);
+                
             }
         }
 
-    // }
+    }
+    else
+    {
+        showResults(outcome);
+    }
+   
     
-    
+
     
     
 }
 
-function showResults()
+function showResults(results)
 {
-
+    if(questionNumber < myQuestions.length)
+    {
+       
+       var outcome = document.querySelector('#outcome')
+       outcome.textContent = results;
+       playQuiz();
+        
+    }
+    else
+    {
+        var outcome = document.querySelector('#outcome')
+        outcome.textContent = results;
+    }
 }
+
