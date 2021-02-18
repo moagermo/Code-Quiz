@@ -5,9 +5,13 @@ var option1 = document.querySelector("#option1");
 var option2 = document.querySelector("#option2");
 var option3 = document.querySelector("#option3");
 var option4 = document.querySelector("#option4");
+var finalResults = document.querySelector("#finalResults")
+var highScores = document.querySelector("#viewHighscores");
 var questionNumber = 0;
 var points = 0;
 var correctAnswer;
+
+document.getElementById("finalResults").style.display='none';
 
 var myQuestions = 
 [
@@ -68,6 +72,19 @@ var myQuestions =
     },
 ]
 
+
+
+startButton.addEventListener("click", function()
+{
+    
+    instructions.remove();
+    
+    document.getElementById("startButton").style.display='none';
+    showButtons();
+    playQuiz();
+    
+});
+
 function showButtons()
 {
     document.getElementById("option1").style.display='block';
@@ -76,35 +93,19 @@ function showButtons()
     document.getElementById("option4").style.display='block';
 }
 
-startButton = document.addEventListener("click", function()
-{
-    
-    questionNumber = 0;
-    playQuiz();
-    
-});
-
-function showQuestion(num)
-{
-    document.getElementById("startButton").style.display='none';
-    showButtons();
-
-    correctAnswer = myQuestions[num].correctAnswer;
-    instructions.remove();
-    
-    title.textContent = myQuestions[num].question;
-    option1.textContent = myQuestions[num].answers.a;
-    option2.textContent = myQuestions[num].answers.b;
-    option3.textContent = myQuestions[num].answers.c;
-    option4.textContent = myQuestions[num].answers.d;
-
-}
 
 function playQuiz()
 {
+    
+    
     if(questionNumber < myQuestions.length)
     {
-        showQuestion(questionNumber);
+        correctAnswer = myQuestions[questionNumber].correctAnswer;
+        title.textContent = myQuestions[questionNumber].question;
+        option1.textContent = myQuestions[questionNumber].answers.a;
+        option2.textContent = myQuestions[questionNumber].answers.b;
+        option3.textContent = myQuestions[questionNumber].answers.c;
+        option4.textContent = myQuestions[questionNumber].answers.d;
 
         document.getElementById('option1').onclick = function checkAnswer()
         {
@@ -113,7 +114,8 @@ function playQuiz()
                 outcome = "Correct!";
                 points = points + 10;
                 questionNumber++;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
+
                 
             }
             else
@@ -121,7 +123,7 @@ function playQuiz()
                 outcome = "Wrong!";
                 points = points - 10;
                 questionNumber++;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
                 
             }
         }
@@ -132,7 +134,7 @@ function playQuiz()
                 outcome = "Correct!";
                 points = points + 10;
                 questionNumber = questionNumber + 1;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
                 
             }
             else
@@ -140,7 +142,7 @@ function playQuiz()
                 outcome = "Wrong!";
                 points = points - 10;
                 questionNumber = questionNumber + 1;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
                 
             }
         }
@@ -151,7 +153,9 @@ function playQuiz()
                 outcome = "Correct!";
                 points = points + 10;
                 questionNumber = questionNumber + 1;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
+                
+
                 
             }
             else
@@ -159,7 +163,7 @@ function playQuiz()
                 outcome = "Wrong!";
                 points = points - 10;
                 questionNumber = questionNumber + 1;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
                 
             }
         }
@@ -170,7 +174,7 @@ function playQuiz()
                 outcome = "Correct!";
                 points = points + 10;
                 questionNumber = questionNumber + 1;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
                 
             }
             else
@@ -178,7 +182,7 @@ function playQuiz()
                 outcome = "Wrong!";
                 points = points - 10;
                 questionNumber = questionNumber + 1;
-                showResults(outcome);
+                showResults(outcome, questionNumber);
                 
             }
         }
@@ -186,7 +190,9 @@ function playQuiz()
     }
     else
     {
-        showResults(outcome);
+        showResults(outcome, questionNumber);
+        endOfGame(points);
+
     }
    
     
@@ -195,20 +201,46 @@ function playQuiz()
     
 }
 
-function showResults(results)
+function endOfGame(finalPoints)
+{
+    document.getElementById("finalResults").style.display='block';
+    title.textContent = "Great Job!"
+
+    if(finalPoints <= 0)
+    {
+        finalResults.textContent = "Better luck next time! You didn't get any points this time.";
+
+    }
+    else
+    {
+        finalResults.textContent = "Your total points for this round was: " + finalPoints;
+    }
+    
+    
+}
+
+function showResults(results, questionNumber)
 {
     if(questionNumber < myQuestions.length)
     {
        
        var outcome = document.querySelector('#outcome')
        outcome.textContent = results;
-       playQuiz();
+       playQuiz(questionNumber);
         
     }
     else
     {
         var outcome = document.querySelector('#outcome')
         outcome.textContent = results;
+        document.getElementById("option1").style.display='none';
+        document.getElementById("option2").style.display='none';
+        document.getElementById("option3").style.display='none';
+        document.getElementById("option4").style.display='none';
+        endOfGame(points);
     }
 }
+
+
+
 
