@@ -1,4 +1,4 @@
-# Password-Generator
+# Code-Quiz
 
 ## Description 
 
@@ -22,14 +22,7 @@ Each question will have 4 available answers for you to choose.
 Once you get to the end, you can save your score in the highscores page and dominate all your friends. 
 
 
-![Alt text](Assets/Images/Password-Length.png?raw=true "Password Length")
-
-![Alt text](Assets/Images/Special-Characters.png?raw=true "Special Characters")
-
-![Alt text](Assets/Images/Uppercase-Letters.png?raw=true "Uppercase Letters")
-
-![Alt text](Assets/Images/Lowercase-Letters.png?raw=true "Lowercase Letters")
-
-![Alt text](Assets/Images/Numbers.png?raw=true "Numbers")
-
-![Alt text](Assets/Images/Final-Password.png?raw=true "Final Password")
+![Alt text](Assets/Images/Landing.png?raw=true "Landing Page")
+![Alt text](Assets/Images/Multiple-Choice.png?raw=true "Multiple Choices")
+![Alt text](Assets/Images/Feedback.png?raw=true "Feedback")
+![Alt text](Assets/Images/Final-Score.png?raw=true "Final Score")

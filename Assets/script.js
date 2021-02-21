@@ -16,6 +16,7 @@ var timer = document.querySelector("#timer");
 var time = 75;
 var form = document.querySelector("#form");
 
+// Listens for user to click the "View Highscores" button
 highScores.addEventListener('click', function()
 {
     showHighScores();
@@ -23,6 +24,7 @@ highScores.addEventListener('click', function()
 
 document.getElementById("finalResults").style.display='none';
 
+// Variable to hold the questions that displays to the user.
 var myQuestions = 
 [
     {
@@ -103,7 +105,7 @@ function showButtons()
     document.getElementById("option4").style.display='block';
 }
 
-
+// Plays the quiz
 function playQuiz(outcome)
 {
     setInterval(startTimer, 1000);
@@ -210,6 +212,7 @@ function playQuiz(outcome)
     
 }
 
+// Shows the outcome of whether the question is right or wrong.
 function showResults(results, questionNumber)
 {
     if(questionNumber < myQuestions.length)
@@ -232,6 +235,7 @@ function showResults(results, questionNumber)
     }
 }
 
+// Displays final points and allows user to save score.
 function endOfGame(finalPoints)
 {
     outcome.style.display = 'none';
@@ -269,6 +273,7 @@ function endOfGame(finalPoints)
     
 }
 
+// Shows the list of highscores.
 function showHighScores(finalPoints)
 {
     title.textContent = 'High Scores';
@@ -299,27 +304,27 @@ function showHighScores(finalPoints)
     backBtn.addEventListener('click', function()
     {
         title.textContent = "Coding Quiz Challenge";
-        wording.style.display = 'block';
         wording.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
 
-        startButton.style.display = 'block';
-        finalResults.style.display = 'none';
+        
+        finalResults.style.display = 'block';
         initials.style.display = 'block';
         outcome.style.display = 'block';
-        submitButton.style.display = 'none';
-        form.style.display = 'none';
+        submitButton.style.display = 'block';
+        form.style.display = 'block';
         backBtn.style.display = 'none';
-        playerScoreSheet.style.display = 'none';
-        // playQuiz();
+        playQuiz();
     });
 
 }
 
+// clears highscores from local storage
 function clearHighScores()
 {
     window.localStorage.clear();
 }
 
+// starts timer at 75 seconds and removes it when it's completed.
 function startTimer()
 {
     time--;
