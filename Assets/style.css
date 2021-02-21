@@ -14,7 +14,6 @@
 {
     position: absolute;
     text-align: center;
-    width: 450px;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 100px;
     margin-right: 33%;
@@ -66,6 +65,49 @@
     font-size: medium;
 }
 
+#finalResults
+{
+    display: none;
+    text-align: center;
+    margin-right: 33%;
+    margin-left: 33%;
+    font-size: medium;
+}
+
+form
+{
+    display: none;
+    margin: 0 auto;
+    width: 500px;
+    
+}
+
+ul 
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+form li + li 
+{
+    margin-top: 1em;
+}
+  
+label 
+{
+    width: 90px;
+    text-align: right;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+  
+input,
+textarea 
+{
+    font: 1em sans-serif;
+    box-sizing: border-box;
+}
 button
 {
     background-color: #6E5689;
@@ -76,6 +118,11 @@ button
 p
 {
     font-style: italic;
+}
+
+#backToGame
+{
+    display: none;
 }
 
 

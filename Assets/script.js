@@ -5,11 +5,21 @@ var option1 = document.querySelector("#option1");
 var option2 = document.querySelector("#option2");
 var option3 = document.querySelector("#option3");
 var option4 = document.querySelector("#option4");
-var finalResults = document.querySelector("#finalResults")
+var finalResults = document.querySelector("#finalResults");
 var highScores = document.querySelector("#viewHighscores");
+var outcome = document.querySelector('#outcome')
 var questionNumber = 0;
 var points = 0;
 var correctAnswer;
+var submitButton = document.querySelector("#submit");
+var timer = document.querySelector("#timer");
+var time = 75;
+var form = document.querySelector("#form");
+
+highScores.addEventListener('click', function()
+{
+    showHighScores();
+});
 
 document.getElementById("finalResults").style.display='none';
 
@@ -81,7 +91,7 @@ startButton.addEventListener("click", function()
     
     document.getElementById("startButton").style.display='none';
     showButtons();
-    playQuiz();
+    playQuiz(outcome);
     
 });
 
@@ -94,9 +104,9 @@ function showButtons()
 }
 
 
-function playQuiz()
+function playQuiz(outcome)
 {
-    
+    setInterval(startTimer, 1000);
     
     if(questionNumber < myQuestions.length)
     {
@@ -115,15 +125,16 @@ function playQuiz()
                 points = points + 10;
                 questionNumber++;
                 showResults(outcome, questionNumber);
+                
 
                 
             }
             else
             {
                 outcome = "Wrong!";
-                points = points - 10;
                 questionNumber++;
                 showResults(outcome, questionNumber);
+                time = time - 10;
                 
             }
         }
@@ -140,9 +151,9 @@ function playQuiz()
             else
             {
                 outcome = "Wrong!";
-                points = points - 10;
-                questionNumber = questionNumber + 1;
+                questionNumber++;
                 showResults(outcome, questionNumber);
+                time = time - 10;
                 
             }
         }
@@ -161,9 +172,9 @@ function playQuiz()
             else
             {
                 outcome = "Wrong!";
-                points = points - 10;
-                questionNumber = questionNumber + 1;
+                questionNumber++;
                 showResults(outcome, questionNumber);
+                time = time - 10;
                 
             }
         }
@@ -180,9 +191,9 @@ function playQuiz()
             else
             {   
                 outcome = "Wrong!";
-                points = points - 10;
-                questionNumber = questionNumber + 1;
+                questionNumber++;
                 showResults(outcome, questionNumber);
+                time = time - 10;
                 
             }
         }
@@ -196,26 +207,6 @@ function playQuiz()
     }
    
     
-
-    
-    
-}
-
-function endOfGame(finalPoints)
-{
-    document.getElementById("finalResults").style.display='block';
-    title.textContent = "Great Job!"
-
-    if(finalPoints <= 0)
-    {
-        finalResults.textContent = "Better luck next time! You didn't get any points this time.";
-
-    }
-    else
-    {
-        finalResults.textContent = "Your total points for this round was: " + finalPoints;
-    }
-    
     
 }
 
@@ -224,14 +215,14 @@ function showResults(results, questionNumber)
     if(questionNumber < myQuestions.length)
     {
        
-       var outcome = document.querySelector('#outcome')
+       
        outcome.textContent = results;
        playQuiz(questionNumber);
         
     }
     else
     {
-        var outcome = document.querySelector('#outcome')
+        
         outcome.textContent = results;
         document.getElementById("option1").style.display='none';
         document.getElementById("option2").style.display='none';
@@ -241,6 +232,104 @@ function showResults(results, questionNumber)
     }
 }
 
+function endOfGame(finalPoints)
+{
+    outcome.style.display = 'none';
+    timer.remove();
+    finalResults.style.display='block';
+    title.textContent = "All done!"
+    form.style.display = 'block';
 
+    if(finalPoints <= 0)
+    {
+        finalResults.textContent = "Better luck next time! You didn't get any points this time.";
 
+    }
+    else
+    {
+        finalResults.textContent = "Your final score is " + finalPoints + ".";
+    }
+    
+    
+
+    submitButton.addEventListener('click', function(event)
+    {
+        var scores = [];
+        scores.push(finalPoints);
+        localStorage.setItem('scores', JSON.stringify(scores));
+
+        finalResults.style.display = 'none';
+        event.preventDefault();
+        var players = [];
+        players.push(initials.value);
+        localStorage.setItem('players', JSON.stringify(players));
+        showHighScores(finalPoints);
+    });
+    
+    
+}
+
+function showHighScores(finalPoints)
+{
+    title.textContent = 'High Scores';
+    var backBtn = document.querySelector("#backToGame");
+    backBtn.style.display = 'block';
+    
+    startButton.style.display = 'none';
+    wording.style.display = 'none';
+    finalResults.style.display = 'none';
+    initials.style.display = 'none';
+    outcome.style.display = 'none';
+    submitButton.style.display = 'none';
+    form.style.display = 'none';
+
+    var storedNames = JSON.parse(localStorage.getItem("players"));
+    
+    for (var i = 0; i < storedNames.length; i++){
+
+        
+        var storedScores = JSON.parse(localStorage.getItem("scores"));
+
+        var playerScoreSheet = document.createElement("li");
+        playerScoreSheet.textContent = storedNames[i] + ": " + storedScores[i];
+        document.querySelector("#playerScores").appendChild(playerScoreSheet);
+
+    }
+
+    backBtn.addEventListener('click', function()
+    {
+        title.textContent = "Coding Quiz Challenge";
+        wording.style.display = 'block';
+        wording.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
+
+        startButton.style.display = 'block';
+        finalResults.style.display = 'none';
+        initials.style.display = 'block';
+        outcome.style.display = 'block';
+        submitButton.style.display = 'none';
+        form.style.display = 'none';
+        backBtn.style.display = 'none';
+        playerScoreSheet.style.display = 'none';
+        // playQuiz();
+    });
+
+}
+
+function clearHighScores()
+{
+    window.localStorage.clear();
+}
+
+function startTimer()
+{
+    time--;
+    timer.textContent = time;
+
+    if(time === 0)
+    {
+        
+        endOfGame();
+    }
+    
+}
 

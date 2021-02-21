@@ -11,31 +11,48 @@
     <div id="viewHighscores">
         <button>View Highscores</button>
     </div>
-    <div id="timer">
-        <h4>Time: <span>0</span></h4>
-    </div>
-    <div class = "title" >
-        <h1 id="title" >Coding Quiz Challenge</h1>
-        <p id="wording">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-        <button id="startButton">Start Quiz</button>
-
-        <div id="choiceButtons">
-          <button id="option1">Option 1</button>
-          <button id="option2">Option 2</button>
-          <button id="option3">Option 3</button>
-          <button id="option4">Option 4</button>
+    <div id="timer" class="timer"></div>
+    <div>
+        <div class="title">
+          <h1 id="title" >Coding Quiz Challenge</h1>
+          <p id="wording">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+          <button id="startButton">Start Quiz</button>
+          <div id="finalResults">
+            <h2>Your final score is</h2>
+          </div>
+          <br>
+          <div>
+            <form id="form">
+              <ul>
+                <li>
+                  <label for="name">Enter initials:</label>
+                  <input type="text" id="initials" name="user_initials">
+                </li>
+                <li>
+                  <button id="submit">Submit</button>
+                </li>
+              </ul>
+            </form>
+          </div>
+          <div id="choiceButtons">
+            <button id="option1">Option 1</button>
+            <button id="option2">Option 2</button>
+            <button id="option3">Option 3</button>
+            <button id="option4">Option 4</button>
+            <hr />
+            <p id="outcome"></p>
+          </div>
+          <div>
+            <ol id="playerScores">
+            </ol>
+          </div>
+          <button id="backToGame">Back To Game</button>
         </div>
+        
 
         
         
-        
-        <p id="outcome"></p>
     </div>
-    <div id="finalResults">
-      <h2>Your final score is</h2>
-    </div>
-    
-    
-    <script src="./Assets/script.js"></script>
+  <script src="./Assets/script.js"></script>
   </body>
 </html>
